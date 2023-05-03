@@ -14,6 +14,6 @@ RUN pip install --upgrade pip \
     && pip install gunicorn
 
 # To match the directory structure at host:
-ADD src/ ./src
+ADD cloudformation_docs/ ./cloudformation_docs
 ADD setup.py .
 RUN pip install .
