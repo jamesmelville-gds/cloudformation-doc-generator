@@ -1,0 +1,6 @@
+-   id: cfn-docs-docker
+    name: cfn-docs (via docker)
+    description: cfn-docs, but provided by docker
+    entry: cfn-docs
+    language: docker
+    files: \.py$
