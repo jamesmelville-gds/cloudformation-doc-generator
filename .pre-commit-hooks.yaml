@@ -3,4 +3,4 @@
     description: cfn-docs, but provided by docker
     entry: cfn-docs
     language: docker
-    files: \.py$
+    files: \.template.yaml$
