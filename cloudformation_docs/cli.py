@@ -22,7 +22,7 @@ def generate(create_readme, files):
         else:
             raise Exception("{}: not a valid file extension".format(extension))
         template = json.loads(j)
-        result = core.generate(template, ".".join(f.name.split(".")[0:-1]), baseTemplatePath)
+        result = core.generate(template, ".".join(f.name.split(".")[0:-1]), baseTemplatePath(f))
         if create_readme:
             with open(os.path.join(os.path.dirname(f.name), 'README2.md'), 'w') as readme:
                 readme.write(result)
