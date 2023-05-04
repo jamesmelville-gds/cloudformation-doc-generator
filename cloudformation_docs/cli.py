@@ -27,6 +27,5 @@ def generate(create_readme, files):
                 readme.write(result)
         click.echo(result)
 
-
 if __name__ == "__main__":
     generate()

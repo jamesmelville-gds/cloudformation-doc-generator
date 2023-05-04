@@ -38,16 +38,21 @@ def get_description(template):
 
 
 TEMPLATE = """# {{ name }}
-# Description
+## Description
 {{ description }}
 
 ## Parameters
-The list of parameters for this template:
+| Parameter        | Type   | Default   | Description |
+|------------------|--------|-----------|-------------|
 {% for parameter in parameters %}
-### {{ parameter }} 
-- Type: {{ parameters[parameter].Type }} {% if parameters[parameter].Default %}
-- Default: {{ parameters[parameter].Default}}{% endif %} {% if parameters[parameter].Description %}
-- Description: {{ parameters[parameter].Description}}{% endif %} {% endfor %}
+
+| {{ parameter }} | {{ parameters[parameter].Type }} |
+{% if parameters[parameter].Default %} {{ parameters[parameter].Default}} |
+{% endif %} 
+{% if parameters[parameter].Description %}
+{{ parameters[parameter].Description}} |
+{% endif %} 
+{% endfor %}
 
 ## Resources
 The list of resources this template creates:
