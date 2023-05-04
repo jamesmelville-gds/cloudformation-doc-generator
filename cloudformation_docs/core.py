@@ -1,5 +1,5 @@
 import os
-from jinja2 import Template
+from jinja2 import Template, Environment
 
 
 def get_parameters(template):
@@ -64,7 +64,7 @@ The list of outputs this template exposes:
 {% endfor %}
 """
 
-CHILD_TEMPLATE = """{% extends baseTemplatePath %}
+CHILD_TEMPLATE = """{% extends baseTemplate %}
 {% block description -%}
 ## Description
 {{ description }}
@@ -104,9 +104,11 @@ def generate(template, name, baseTemplatePath):
     parameters = get_parameters(template)
     resources = get_resources(template)
     outputs = get_outputs(template)
+    env = Environment()
     if os.path.isfile(baseTemplatePath):
+        baseTemplate=env.get_template(baseTemplatePath)
         return Template(CHILD_TEMPLATE).render(
-            baseTemplatePath=baseTemplatePath,
+            baseTemplate=baseTemplate,
             name=name,
             description=description,
             parameters=parameters,
