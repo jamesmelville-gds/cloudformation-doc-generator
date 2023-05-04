@@ -1,3 +1,4 @@
+import os
 from jinja2 import Template
 
 
@@ -63,8 +64,7 @@ The list of outputs this template exposes:
 {% endfor %}
 """
 
-CHILD_TEMPLATE = """
-{% extends "README.jinja" %}
+CHILD_TEMPLATE = """{% extends {{ baseTemplatePath }} %}
 {% block description -%}
 ## Description
 {{ description }}
@@ -99,13 +99,14 @@ The list of outputs this template exposes:
 """
 
 
-def generate(template, name, enriched):
+def generate(template, name, baseTemplatePath):
     description = get_description(template)
     parameters = get_parameters(template)
     resources = get_resources(template)
     outputs = get_outputs(template)
-    if enriched:
+    if os.path.isfile(baseTemplatePath):
         return Template(CHILD_TEMPLATE).render(
+            baseTemplatePath=baseTemplatePath,
             name=name,
             description=description,
             parameters=parameters,
