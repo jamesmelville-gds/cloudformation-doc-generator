@@ -41,26 +41,25 @@ TEMPLATE = """# {{ name }}
 ## Description
 {{ description }}
 
-## Parameters
+### Parameters
+The list of parameters for this template:
 | Parameter        | Type   | Default   | Description |
 |------------------|--------|-----------|-------------|
-{% for parameter in parameters -%} 
-| {{ parameter }} | {{ parameters[parameter].Type }} | {% if parameters[parameter].Default %} {{ parameters[parameter].Default}}{% endif %} | {% if parameters[parameter].Description %}{{ parameters[parameter].Description}}{% endif %} |
-{%- endfor %}
+{% for parameter in parameters %}| {{ parameter }} | {{ parameters[parameter].Type }} | {% if parameters[parameter].Default %}{{ parameters[parameter].Default}}{% endif %} | {% if parameters[parameter].Description %} {{ parameters[parameter].Description}}{% endif %}
+{% endfor %}
 
-## Resources
+### Resources
 The list of resources this template creates:
-{% for resource in resources %}
-### {{ resource }} 
-Type: {{ resources[resource].Type }} {% if resources[resource].Description %}
-Description: {{ resources[resource].Description}}{% endif %} {% endfor %}
+| Resource         | Type   |
+|------------------|--------|
+{% for resource in resources %}| {{ resource }} | {{ resources[resource].Type }}
+{% endfor %}
 
-## Outputs
+### Outputs
 The list of outputs this template exposes:
-{% for output in outputs %}
-### {{ output }} 
-{% if outputs[output].Description %}Description: {{ outputs[output].Description}}{% endif %}{% if outputs[output].Export %} 
-Export name: {{ outputs[output].Export.Name }}{% endif %}  
+| Output           | Description   |
+|------------------|---------------|
+{% for output in outputs %}| {{ output }} | {% if outputs[output].Description %}{{ outputs[output].Description}}{% endif %}
 {% endfor %}
 """
 
