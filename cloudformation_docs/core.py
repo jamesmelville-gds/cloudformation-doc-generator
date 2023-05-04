@@ -64,7 +64,7 @@ The list of outputs this template exposes:
 {% endfor %}
 """
 
-CHILD_TEMPLATE = """{% extends {{ baseTemplatePath }} %}
+CHILD_TEMPLATE = """{% extends baseTemplatePath %}
 {% block description -%}
 ## Description
 {{ description }}
