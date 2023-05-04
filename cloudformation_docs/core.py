@@ -44,7 +44,7 @@ TEMPLATE = """# {{ name }}
 ## Parameters
 | Parameter        | Type   | Default   | Description |
 |------------------|--------|-----------|-------------|
-{% for parameter in parameters %}
+{% for parameter in parameters -%}
 | {{ parameter }} | {{ parameters[parameter].Type }} | {% if parameters[parameter].Default %} {{ parameters[parameter].Default}} | {% endif %}{% if parameters[parameter].Description %}{{ parameters[parameter].Description}}|{% endif %}
 {% endfor %}
 
