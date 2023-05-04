@@ -6,7 +6,8 @@ from cfn_flip import to_json
 
 from . import core
 
-baseTemplatePath = os.path.join(os.path.dirname(f.name), 'README.jinja')
+def baseTemplatePath(f):
+    return os.path.join(os.path.dirname(f.name), 'README.jinja')
 
 @click.command(context_settings={"ignore_unknown_options": True})
 @click.option("--create-readme", is_flag=True, show_default=True, default=False, help="Write a README.md alongside the template")
