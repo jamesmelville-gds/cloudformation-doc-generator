@@ -6,9 +6,6 @@ from cfn_flip import to_json
 
 from . import core
 
-def baseTemplatePath(f):
-    return os.path.join(os.path.dirname(f.name), 'README.jinja')
-
 @click.command(context_settings={"ignore_unknown_options": True})
 @click.option("--create-readme", is_flag=True, show_default=True, default=False, help="Write a README.md alongside the template")
 @click.argument("files", nargs=-1, type=click.File())
@@ -22,7 +19,7 @@ def generate(create_readme, files):
         else:
             raise Exception("{}: not a valid file extension".format(extension))
         template = json.loads(j)
-        result = core.generate(template, ".".join(f.name.split(".")[0:-1]), baseTemplatePath(f))
+        result = core.generate(template, ".".join(f.name.split(".")[0:-1]), os.path.dirname(f.name))
         if create_readme:
             with open(os.path.join(os.path.dirname(f.name), 'README2.md'), 'w') as readme:
                 readme.write(result)

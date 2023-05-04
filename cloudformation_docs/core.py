@@ -1,5 +1,5 @@
 import os
-from jinja2 import Template, Environment
+from jinja2 import Template, Environment, FileSystemLoader
 
 
 def get_parameters(template):
@@ -104,9 +104,9 @@ def generate(template, name, baseTemplatePath):
     parameters = get_parameters(template)
     resources = get_resources(template)
     outputs = get_outputs(template)
-    env = Environment()
-    if os.path.isfile(baseTemplatePath):
-        baseTemplate=env.get_template(baseTemplatePath)
+    try:
+        env = Environment(loader=FileSystemLoader(baseTemplatePath))
+        baseTemplate=env.get_template('README.jinja')
         return Template(CHILD_TEMPLATE).render(
             baseTemplate=baseTemplate,
             name=name,
@@ -115,7 +115,7 @@ def generate(template, name, baseTemplatePath):
             resources=resources,
             outputs=outputs,
         )
-    else:
+    except:
         return Template(TEMPLATE).render(
             name=name,
             description=description,
