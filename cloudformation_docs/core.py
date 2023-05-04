@@ -63,17 +63,60 @@ The list of outputs this template exposes:
 {% endfor %}
 """
 
+CHILD_TEMPLATE = """
+{% extends "README.jinja" %}
+{% block description -%}
+## Description
+{{ description }}
+{%- endblock %}
 
-def generate(template, name):
+{% block parameters -%}
+### Parameters
+The list of parameters for this template:
+| Parameter        | Type   | Default   | Description |
+|------------------|--------|-----------|-------------|
+{% for parameter in parameters %}| {{ parameter }} | {{ parameters[parameter].Type }} | {% if parameters[parameter].Default %}{{ parameters[parameter].Default}}{% endif %} | {% if parameters[parameter].Description %} {{ parameters[parameter].Description}}{% endif %}
+{%- endfor %}
+{%- endblock %}
+
+{% block resources -%}
+### Resources
+The list of resources this template creates:
+| Resource         | Type   |
+|------------------|--------|
+{% for resource in resources %}| {{ resource }} | {{ resources[resource].Type }}
+{% endfor %}
+{%- endblock %}
+
+{% block outputs -%}
+### Outputs
+The list of outputs this template exposes:
+| Output           | Description   |
+|------------------|---------------|
+{% for output in outputs %}| {{ output }} | {% if outputs[output].Description %}{{ outputs[output].Description}}{% endif %}
+{% endfor %}
+{%- endblock %}
+"""
+
+
+def generate(template, name, enriched):
     description = get_description(template)
     parameters = get_parameters(template)
     resources = get_resources(template)
     outputs = get_outputs(template)
-
-    return Template(TEMPLATE).render(
-        name=name,
-        description=description,
-        parameters=parameters,
-        resources=resources,
-        outputs=outputs,
-    )
+    if enriched:
+        return Template(CHILD_TEMPLATE).render(
+            name=name,
+            description=description,
+            parameters=parameters,
+            resources=resources,
+            outputs=outputs,
+        )
+    else:
+        return Template(TEMPLATE).render(
+            name=name,
+            description=description,
+            parameters=parameters,
+            resources=resources,
+            outputs=outputs,
+        )

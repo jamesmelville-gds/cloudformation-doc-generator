@@ -11,6 +11,10 @@ from . import core
 @click.option("--create-readme", is_flag=True, show_default=True, default=False, help="Write a README.md alongside the template")
 @click.argument("files", nargs=-1, type=click.File())
 
+def baseTemplateExists(f):
+    baseTemplatePath = os.path.join(os.path.dirname(f.name), 'README.jinja')
+    return os.path.isfile(baseTemplatePath)
+
 def generate(create_readme, files):
     for f in files:
         extension = f.name.split(".").pop()
@@ -21,7 +25,7 @@ def generate(create_readme, files):
         else:
             raise Exception("{}: not a valid file extension".format(extension))
         template = json.loads(j)
-        result = core.generate(template, ".".join(f.name.split(".")[0:-1]))
+        result = core.generate(template, ".".join(f.name.split(".")[0:-1]), baseTemplateExists(f))
         if create_readme:
             with open(os.path.join(os.path.dirname(f.name), 'README2.md'), 'w') as readme:
                 readme.write(result)
