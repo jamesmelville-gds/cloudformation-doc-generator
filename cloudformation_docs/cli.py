@@ -23,7 +23,7 @@ def generate(create_readme, files):
         template = json.loads(j)
         result = core.generate(template, ".".join(f.name.split(".")[0:-1]))
         if create_readme:
-            with open(os.path.dirname(f.name)+"README.md", 'w') as readme:
+            with open(os.path.dirname(f.name)+"/README.md", 'w') as readme:
                 readme.write(result)
         click.echo(result)
 
