@@ -4,4 +4,3 @@
     entry: cfn-docs
     language: docker
     files: \.template.yaml$
-    log_file: README.md
