@@ -6,14 +6,13 @@ from cfn_flip import to_json
 
 from . import core
 
+def baseTemplateExists(f):
+    baseTemplatePath = os.path.join(os.path.dirname(f.name), 'README.jinja')
+    return os.path.isfile(baseTemplatePath)
 
 @click.command(context_settings={"ignore_unknown_options": True})
 @click.option("--create-readme", is_flag=True, show_default=True, default=False, help="Write a README.md alongside the template")
 @click.argument("files", nargs=-1, type=click.File())
-
-def baseTemplateExists(f):
-    baseTemplatePath = os.path.join(os.path.dirname(f.name), 'README.jinja')
-    return os.path.isfile(baseTemplatePath)
 
 def generate(create_readme, files):
     for f in files:
