@@ -65,37 +65,37 @@ The list of outputs this template exposes:
 """
 
 CHILD_TEMPLATE = """{% extends baseTemplate %}
-{% block description -%}
+{%- block description -%}
 ## Description
 {{ description }}
-{%- endblock %}
+{%- endblock -%}
 
-{% block parameters -%}
+{%- block parameters -%}
 ### Parameters
 The list of parameters for this template:
 | Parameter        | Type   | Default   | Description |
 |------------------|--------|-----------|-------------|
 {% for parameter in parameters %}| {{ parameter }} | {{ parameters[parameter].Type }} | {% if parameters[parameter].Default %}{{ parameters[parameter].Default}}{% endif %} | {% if parameters[parameter].Description %} {{ parameters[parameter].Description}}{% endif %}
-{%- endfor %}
-{%- endblock %}
+{%- endfor -%}
+{%- endblock -%}
 
-{% block resources -%}
+{%- block resources -%}
 ### Resources
 The list of resources this template creates:
 | Resource         | Type   |
 |------------------|--------|
 {% for resource in resources %}| {{ resource }} | {{ resources[resource].Type }}
-{% endfor %}
-{%- endblock %}
+{%- endfor -%}
+{%- endblock -%}
 
-{% block outputs -%}
+{%- block outputs -%}
 ### Outputs
 The list of outputs this template exposes:
 | Output           | Description   |
 |------------------|---------------|
 {% for output in outputs %}| {{ output }} | {% if outputs[output].Description %}{{ outputs[output].Description}}{% endif %}
-{% endfor %}
-{%- endblock %}
+{%- endfor -%}
+{%- endblock -%}
 """
 
 
