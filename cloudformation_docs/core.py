@@ -64,7 +64,7 @@ The list of outputs this template exposes:
 {% endfor %}
 """
 
-CHILD_TEMPLATE = """{% extends baseTemplate %}
+CHILD_TEMPLATE = """#jinja2: lstrip_blocks: "True", trim_blocks: "True"{% extends baseTemplate %}
 {%- block description -%}
 ## Description
 {{ description }}
