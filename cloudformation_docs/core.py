@@ -46,55 +46,50 @@ TEMPLATE = """# {{ name }}
 The list of parameters for this template:
 | Parameter        | Type   | Default   | Description |
 |------------------|--------|-----------|-------------|
-{% for parameter in parameters %}| {{ parameter }} | {{ parameters[parameter].Type }} | {% if parameters[parameter].Default %}{{ parameters[parameter].Default}}{% endif %} | {% if parameters[parameter].Description %} {{ parameters[parameter].Description}}{% endif %} 
+{% for parameter in parameters %}| {{ parameter }} | {{ parameters[parameter].Type }} | {% if parameters[parameter].Default %}{{ parameters[parameter].Default}}{% endif %} | {% if parameters[parameter].Description %} {{ parameters[parameter].Description}}{% endif %} {% endfor %}
 
 ### Resources
 The list of resources this template creates:
 | Resource         | Type   |
 |------------------|--------|
-{% for resource in resources %}| {{ resource }} | {{ resources[resource].Type }} |
-{% endfor %}
+{% for resource in resources %}| {{ resource }} | {{ resources[resource].Type }} |{% endfor %}
 
 ### Outputs
 The list of outputs this template exposes:
 | Output           | Description   |
 |------------------|---------------|
-{% for output in outputs %}| {{ output }} | {% if outputs[output].Description %}{{ outputs[output].Description}}{% endif %} |
-{% endfor %}
+{% for output in outputs %}| {{ output }} | {% if outputs[output].Description %}{{ outputs[output].Description}}{% endif %} |{% endfor %}
 """
 
 CHILD_TEMPLATE = """#jinja2: lstrip_blocks: "True", trim_blocks: "True"{% extends baseTemplate %}
-{%- block description -%}
+{% block description %}
 ## Description
 {{ description }}
-{%- endblock -%}
+{% endblock %}
 
-{%- block parameters -%}
+{% block parameters %}
 ### Parameters
 The list of parameters for this template:
 | Parameter        | Type   | Default   | Description |
 |------------------|--------|-----------|-------------|
-{% for parameter in parameters %}| {{ parameter }} | {{ parameters[parameter].Type }} | {% if parameters[parameter].Default %}{{ parameters[parameter].Default}}{% endif %} | {% if parameters[parameter].Description %} {{ parameters[parameter].Description}}{% endif %} |
-{%- endfor -%}
-{%- endblock -%}
+{% for parameter in parameters %}| {{ parameter }} | {{ parameters[parameter].Type }} | {% if parameters[parameter].Default %}{{ parameters[parameter].Default}}{% endif %} | {% if parameters[parameter].Description %} {{ parameters[parameter].Description }}{% endif %}|{% endfor %}
+{% endblock %}
 
-{%- block resources -%}
+{% block resources %}
 ### Resources
 The list of resources this template creates:
 | Resource         | Type   |
 |------------------|--------|
-{% for resource in resources %}| {{ resource }} | {{ resources[resource].Type }} |
-{%- endfor -%}
-{%- endblock -%}
+{% for resource in resources %}| {{ resource }} | {{ resources[resource].Type }} |{% endfor %}
+{% endblock %}
 
-{%- block outputs -%}
+{% block outputs %}
 ### Outputs
 The list of outputs this template exposes:
 | Output           | Description   |
 |------------------|---------------|
-{% for output in outputs %}| {{ output }} | {% if outputs[output].Description %}{{ outputs[output].Description}}{% endif %} |
-{%- endfor -%}
-{%- endblock -%}
+{% for output in outputs %}| {{ output }} | {% if outputs[output].Description %}{{outputs[output].Description }}{% endif %}|{% endfor %}
+{% endblock %}
 """
 
 
