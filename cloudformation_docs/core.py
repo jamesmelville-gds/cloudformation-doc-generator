@@ -61,7 +61,7 @@ The list of outputs this template exposes:
 {% for output in outputs %}| {{ output }} | {% if outputs[output].Description %}{{ outputs[output].Description}}{% endif %} |{% endfor %}
 """
 
-CHILD_TEMPLATE = """#jinja2: lstrip_blocks: "True", trim_blocks: "True"{% extends baseTemplate %}
+CHILD_TEMPLATE = """
 {% block description %}
 ## Description
 {{ description }}{% endblock %}
@@ -71,7 +71,7 @@ CHILD_TEMPLATE = """#jinja2: lstrip_blocks: "True", trim_blocks: "True"{% extend
 The list of parameters for this template:
 | Parameter        | Type   | Default   | Description |
 |------------------|--------|-----------|-------------|
-{% for parameter in parameters %}| {{ parameter }} | {{ parameters[parameter].Type }} | {% if parameters[parameter].Default %}{{ parameters[parameter].Default}}{% endif %} | {% if parameters[parameter].Description %} {{ parameters[parameter].Description }}{% endif %}|
+{% for parameter in parameters %}| {{ parameter }} | {{ parameters[parameter].Type }} | {% if parameters[parameter].Default %}{{ parameters[parameter].Default}}{% endif %} | {% if parameters[parameter].Description %} {{ parameters[parameter].Description }}{% endif %} |
 {% endfor %}{% endblock %}
 
 {% block resources %}
