@@ -71,24 +71,30 @@ CHILD_TEMPLATE = """
 The list of parameters for this template:
 | Parameter        | Type   | Default   | Description |
 |------------------|--------|-----------|-------------|
-{% for parameter in parameters %}| {{ parameter }} | {{ parameters[parameter].Type }} | {% if parameters[parameter].Default %}{{ parameters[parameter].Default}}{% endif %} | {% if parameters[parameter].Description %} {{ parameters[parameter].Description }}{% endif %} |
-{% endfor %}{% endblock %}
+{% for parameter in parameters %}
+| {{ parameter }} | {{ parameters[parameter].Type }} | {% if parameters[parameter].Default %}{{ parameters[parameter].Default}}{% endif %} | {% if parameters[parameter].Description %}{{ parameters[parameter].Description }}{% endif %} |
+{% endfor %}
+{% endblock %}
 
 {% block resources %}
 ### Resources
 The list of resources this template creates:
 | Resource         | Type   |
 |------------------|--------|
-{% for resource in resources %}| {{ resource }} | {{ resources[resource].Type }} |
-{% endfor %}{% endblock %}
+{% for resource in resources %}
+| {{ resource }} | {{ resources[resource].Type }} |
+{% endfor %}
+{% endblock %}
 
 {% block outputs %}
 ### Outputs
 The list of outputs this template exposes:
 | Output           | Description   |
 |------------------|---------------|
-{% for output in outputs %}| {{ output }} | {% if outputs[output].Description %}{{outputs[output].Description }}{% endif %}|
-{% endfor %}{% endblock %}
+{% for output in outputs %}
+| {{ output }} | {% if outputs[output].Description %}{{outputs[output].Description }}{% endif %} |
+{% endfor %}
+{% endblock %}
 """
 
 
