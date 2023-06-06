@@ -73,7 +73,7 @@ The list of outputs this template exposes:
 {% for output in outputs %}| {{ output }} | {% if outputs[output].Description %}{{ outputs[output].Description}}{% endif %} |{% endfor %}
 """
 
-CHILD_TEMPLATE = """
+CHILD_TEMPLATE = """{% extends baseTemplate %}
 {% block description %}
 ## Description
 {{ description }}{% endblock %}
@@ -84,8 +84,7 @@ The list of parameters for this template:
 | Parameter        | Type   | Default   | Description |
 |------------------|--------|-----------|-------------|
 {% for parameter in parameters -%}
-| {{ parameter }} | {{ parameters[parameter].Type }} | {% if parameters[parameter].Default %}{{ parameters[parameter].Default}}{% endif %} | {% if parameters[parameter].Description %}{{ add_breaks(parameters[parameter].Description) }}{% endif %} |{{ "
-" if not loop.last }}
+| {{ parameter }} | {{ parameters[parameter].Type }} | {% if parameters[parameter].Default %}{{ parameters[parameter].Default}}{% endif %} | {% if parameters[parameter].Description %}{{ add_breaks(parameters[parameter].Description) }}{% endif %} |
 {%- endfor %}
 {%- endblock %}
 
