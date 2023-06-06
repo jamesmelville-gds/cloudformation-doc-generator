@@ -38,7 +38,7 @@ def get_description(template):
     return add_breaks(description)
 
 def add_breaks(text):
-    return "\n".join([line+" <br>" for line in text.striplines()])
+    return "\n".join([line+" <br>" for line in text.splitlines()])
 
 
 TEMPLATE = """# {{ name }}
