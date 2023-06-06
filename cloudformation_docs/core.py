@@ -113,7 +113,9 @@ def generate(template, name, baseTemplatePath):
     try:
         env = Environment(loader=FileSystemLoader(baseTemplatePath))
         baseTemplate=env.get_template('README.jinja')
-        return (Template(CHILD_TEMPLATE, trim_blocks=True, lstrip_blocks=True).globals.update(func_dict)).render(
+        childTemplate=Template(CHILD_TEMPLATE, trim_blocks=True, lstrip_blocks=True)
+        childTemplate.globals.update(func_dict)
+        return childTemplate.render(
             baseTemplate=baseTemplate,
             name=name,
             description=description,
@@ -122,7 +124,9 @@ def generate(template, name, baseTemplatePath):
             outputs=outputs,
         )
     except:
-        return (Template(TEMPLATE).globals.update(func_dict)).render(
+        template = Template(TEMPLATE, trim_blocks=True, lstrip_blocks=True)
+        template.globals.update(func_dict)
+        return template.render(
             name=name,
             description=description,
             parameters=parameters,
