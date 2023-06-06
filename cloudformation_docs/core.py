@@ -85,8 +85,8 @@ The list of parameters for this template:
 |------------------|--------|-----------|-------------|
 {% for parameter in parameters %}
 | {{ parameter }} | {{ parameters[parameter].Type }} | {% if parameters[parameter].Default %}{{ parameters[parameter].Default}}{% endif %} | {% if parameters[parameter].Description %}{{ add_breaks(parameters[parameter].Description) }}{% endif %} |
-{% endfor -%}
-{% endblock -%}
+{% endfor %}
+{% endblock %}
 
 {% block resources %}
 ### Resources
@@ -95,8 +95,8 @@ The list of resources this template creates:
 |------------------|--------|
 {% for resource in resources %}
 | {{ resource }} | {{ resources[resource].Type }} |
-{% endfor -%}
-{% endblock -%}
+{% endfor %}
+{% endblock %}
 
 {% block outputs %}
 ### Outputs
@@ -105,8 +105,8 @@ The list of outputs this template exposes:
 |------------------|---------------|
 {% for output in outputs %}
 | {{ output }} | {% if outputs[output].Description %}{{ add_breaks(outputs[output].Description) }}{% endif %} |
-{% endfor -%}
-{% endblock -%}
+{% endfor %}
+{% endblock %}
 """
 
 
@@ -118,7 +118,7 @@ def generate(template, name, baseTemplatePath):
     try:
         env = Environment(loader=FileSystemLoader(baseTemplatePath))
         baseTemplate=env.get_template('README.jinja')
-        childTemplate=Template(CHILD_TEMPLATE)
+        childTemplate=Template(CHILD_TEMPLATE, trim_blocks=True, lstrip_blocks=True)
         childTemplate.globals.update(func_dict)
         return childTemplate.render(
             baseTemplate=baseTemplate,
