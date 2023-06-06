@@ -38,6 +38,12 @@ def get_description(template):
     return description
 
 def add_breaks(text):
+    # This is intended to loop through the multiline string and append each line with a break
+    # cfn-flip is used within this tool to convert to json which does not support multiline
+    # so currently this just adds a break to the single line that is returned.
+    #
+    # In future we will remove cfn-flip and support multiline in yaml so leaving it in
+    
     return "\n".join([line+" <br>" for line in text.splitlines()])
 
 func_dict = {
@@ -99,7 +105,7 @@ The list of outputs this template exposes:
 | Output           | Description   |
 |------------------|---------------|
 {% for output in outputs %}
-| {{ output }} | {% if outputs[output].Description %}{{outputs[output].Description }}{% endif %} |
+| {{ output }} | {% if outputs[output].Description %}{{ add_breaks(outputs[output].Description) }}{% endif %} |
 {% endfor %}
 {% endblock %}
 """
@@ -124,7 +130,7 @@ def generate(template, name, baseTemplatePath):
             outputs=outputs,
         )
     except:
-        template = Template(TEMPLATE, trim_blocks=True, lstrip_blocks=True)
+        template = Template(TEMPLATE)
         template.globals.update(func_dict)
         return template.render(
             name=name,
