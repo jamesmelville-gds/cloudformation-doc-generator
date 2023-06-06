@@ -83,30 +83,30 @@ CHILD_TEMPLATE = """{% extends baseTemplate %}
 The list of parameters for this template:
 | Parameter        | Type   | Default   | Description |
 |------------------|--------|-----------|-------------|
-{% for parameter in parameters -%}
+{% for parameter in parameters %}
 | {{ parameter }} | {{ parameters[parameter].Type }} | {% if parameters[parameter].Default %}{{ parameters[parameter].Default}}{% endif %} | {% if parameters[parameter].Description %}{{ add_breaks(parameters[parameter].Description) }}{% endif %} |
-{% endfor %}
-{%- endblock %}
+{% endfor -%}
+{% endblock -%}
 
 {% block resources %}
 ### Resources
 The list of resources this template creates:
 | Resource         | Type   |
 |------------------|--------|
-{% for resource in resources -%}
+{% for resource in resources %}
 | {{ resource }} | {{ resources[resource].Type }} |
-{% endfor %}
-{%- endblock %}
+{% endfor -%}
+{% endblock -%}
 
 {% block outputs %}
 ### Outputs
 The list of outputs this template exposes:
 | Output           | Description   |
 |------------------|---------------|
-{% for output in outputs -%}
+{% for output in outputs %}
 | {{ output }} | {% if outputs[output].Description %}{{ add_breaks(outputs[output].Description) }}{% endif %} |
-{% endfor %}
-{%- endblock %}
+{% endfor -%}
+{% endblock -%}
 """
 
 
