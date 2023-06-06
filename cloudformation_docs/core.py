@@ -87,7 +87,7 @@ The list of parameters for this template:
 | {{ parameter }} | {{ parameters[parameter].Type }} | {% if parameters[parameter].Default %}{{ parameters[parameter].Default}}{% endif %} | {% if parameters[parameter].Description %}{{ add_breaks(parameters[parameter].Description) }}{% endif %} |{{ "
 " if not loop.last }}
 {%- endfor %}
-{% endblock %}
+{%- endblock %}
 
 {% block resources %}
 ### Resources
@@ -96,8 +96,8 @@ The list of resources this template creates:
 |------------------|--------|
 {% for resource in resources %}
 | {{ resource }} | {{ resources[resource].Type }} |
-{% endfor %}
-{% endblock %}
+{%- endfor %}
+{%- endblock %}
 
 {% block outputs %}
 ### Outputs
@@ -106,8 +106,8 @@ The list of outputs this template exposes:
 |------------------|---------------|
 {% for output in outputs %}
 | {{ output }} | {% if outputs[output].Description %}{{ add_breaks(outputs[output].Description) }}{% endif %} |
-{% endfor %}
-{% endblock %}
+{%- endfor %}
+{%- endblock %}
 """
 
 
