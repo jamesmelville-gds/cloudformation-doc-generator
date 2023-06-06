@@ -44,7 +44,7 @@ def add_breaks(text):
     #
     # In future we will remove cfn-flip and support multiline in yaml so leaving it in
     
-    return "\n".join([line+" <br>" for line in text.splitlines()])
+    return "".join([line+" <br>" for line in text.splitlines()])
 
 func_dict = {
     "add_breaks": add_breaks
