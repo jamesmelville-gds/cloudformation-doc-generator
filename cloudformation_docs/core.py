@@ -94,7 +94,7 @@ The list of parameters for this template:
 The list of resources this template creates:
 | Resource         | Type   |
 |------------------|--------|
-{% for resource in resources %}
+{% for resource in resources -%}
 | {{ resource }} | {{ resources[resource].Type }} |
 {%- endfor %}
 {%- endblock %}
@@ -104,7 +104,7 @@ The list of resources this template creates:
 The list of outputs this template exposes:
 | Output           | Description   |
 |------------------|---------------|
-{% for output in outputs %}
+{% for output in outputs -%}
 | {{ output }} | {% if outputs[output].Description %}{{ add_breaks(outputs[output].Description) }}{% endif %} |
 {%- endfor %}
 {%- endblock %}
