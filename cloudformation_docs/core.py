@@ -124,8 +124,7 @@ def generate(template, name, baseTemplatePath):
             outputs=outputs,
         )
     except:
-        TEMPLATE.globals.update(func_dict)
-        return Template(TEMPLATE).render(
+        return (Template(TEMPLATE).globals.update(func_dict)).render(
             name=name,
             description=description,
             parameters=parameters,
