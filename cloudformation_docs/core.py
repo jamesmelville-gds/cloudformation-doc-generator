@@ -35,11 +35,14 @@ def get_description(template):
         description = template.get('description')
     if not description:
         description = "No Template description set"
-    return add_breaks(description)
+    return description
 
 def add_breaks(text):
     return "\n".join([line+" <br>" for line in text.splitlines()])
 
+func_dict = {
+    "add_breaks": add_breaks
+}
 
 TEMPLATE = """# {{ name }}
 ## Description
@@ -49,7 +52,7 @@ TEMPLATE = """# {{ name }}
 The list of parameters for this template:
 | Parameter        | Type   | Default   | Description |
 |------------------|--------|-----------|-------------|
-{% for parameter in parameters %}| {{ parameter }} | {{ parameters[parameter].Type }} | {% if parameters[parameter].Default %}{{ parameters[parameter].Default}}{% endif %} | {% if parameters[parameter].Description %} {{ parameters[parameter].Description}}{% endif %} {% endfor %}
+{% for parameter in parameters %}| {{ parameter }} | {{ parameters[parameter].Type }} | {% if parameters[parameter].Default %}{{ parameters[parameter].Default}}{% endif %} | {% if parameters[parameter].Description %} {{ add_breaks(parameters[parameter].Description)}}{% endif %} {% endfor %}
 
 ### Resources
 The list of resources this template creates:
@@ -75,7 +78,7 @@ The list of parameters for this template:
 | Parameter        | Type   | Default   | Description |
 |------------------|--------|-----------|-------------|
 {% for parameter in parameters -%}
-| {{ parameter }} | {{ parameters[parameter].Type }} | {% if parameters[parameter].Default %}{{ parameters[parameter].Default}}{% endif %} | {%- if parameters[parameter].Description -%}{{ parameters[parameter].Description }}{%- endif -%} |{{ "
+| {{ parameter }} | {{ parameters[parameter].Type }} | {% if parameters[parameter].Default %}{{ parameters[parameter].Default}}{% endif %} | {% if parameters[parameter].Description %}{{ add_breaks(parameters[parameter].Description) }}{% endif %} |{{ "
 " if not loop.last }}
 {%- endfor %}
 {% endblock %}
@@ -110,6 +113,8 @@ def generate(template, name, baseTemplatePath):
     try:
         env = Environment(loader=FileSystemLoader(baseTemplatePath))
         baseTemplate=env.get_template('README.jinja')
+        baseTemplate.globals.update(func_dict)
+        CHILD_TEMPLATE.globals.update(func_dict)
         return Template(CHILD_TEMPLATE, trim_blocks=True, lstrip_blocks=True).render(
             baseTemplate=baseTemplate,
             name=name,
@@ -119,6 +124,7 @@ def generate(template, name, baseTemplatePath):
             outputs=outputs,
         )
     except:
+        TEMPLATE.globals.update(func_dict)
         return Template(TEMPLATE).render(
             name=name,
             description=description,
