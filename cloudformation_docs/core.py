@@ -58,19 +58,25 @@ TEMPLATE = """# {{ name }}
 The list of parameters for this template:
 | Parameter        | Type   | Default   | Description |
 |------------------|--------|-----------|-------------|
-{% for parameter in parameters %}| {{ parameter }} | {{ parameters[parameter].Type }} | {% if parameters[parameter].Default %}{{ parameters[parameter].Default}}{% endif %} | {% if parameters[parameter].Description %} {{ add_breaks(parameters[parameter].Description)}}{% endif %} {% endfor %}
+{% for parameter in parameters %}
+| {{ parameter }} | {{ parameters[parameter].Type }} | {% if parameters[parameter].Default %}{{ parameters[parameter].Default}}{% endif %} | {% if parameters[parameter].Description %}{{ add_breaks(parameters[parameter].Description) }}{% endif %} |
+{% endfor %}
 
 ### Resources
 The list of resources this template creates:
 | Resource         | Type   |
 |------------------|--------|
-{% for resource in resources %}| {{ resource }} | {{ resources[resource].Type }} |{% endfor %}
+{% for resource in resources %}
+| {{ resource }} | {{ resources[resource].Type }} |
+{% endfor %}
 
 ### Outputs
 The list of outputs this template exposes:
 | Output           | Description   |
 |------------------|---------------|
-{% for output in outputs %}| {{ output }} | {% if outputs[output].Description %}{{ outputs[output].Description}}{% endif %} |{% endfor %}
+{% for output in outputs %}
+| {{ output }} | {% if outputs[output].Description %}{{ add_breaks(outputs[output].Description) }}{% endif %} |
+{% endfor %}
 """
 
 CHILD_TEMPLATE = """{% extends baseTemplate %}
@@ -129,7 +135,7 @@ def generate(template, name, baseTemplatePath):
             outputs=outputs,
         )
     except:
-        template = Template(TEMPLATE)
+        template = Template(TEMPLATE, trim_blocks=True, lstrip_blocks=True)
         template.globals.update(func_dict)
         return template.render(
             name=name,
