@@ -113,7 +113,7 @@ def generate(template, name, baseTemplatePath):
     try:
         env = Environment(loader=FileSystemLoader(baseTemplatePath))
         baseTemplate=env.get_template('README.jinja')
-        childTemplate=Template(CHILD_TEMPLATE, trim_blocks=True, lstrip_blocks=True)
+        childTemplate=Template(CHILD_TEMPLATE)
         childTemplate.globals.update(func_dict)
         return childTemplate.render(
             baseTemplate=baseTemplate,
