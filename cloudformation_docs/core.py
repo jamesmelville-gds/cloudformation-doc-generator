@@ -61,6 +61,7 @@ TEMPLATE = """# {{ name }}
 
 ### Parameters
 The list of parameters for this template:
+
 | Parameter        | Type   | Default   | Description |
 |------------------|--------|-----------|-------------|
 {% for parameter in parameters %}
@@ -69,6 +70,7 @@ The list of parameters for this template:
 
 ### Resources
 The list of resources this template creates:
+
 | Resource         | Type   |
 |------------------|--------|
 {% for resource in resources %}
@@ -77,6 +79,7 @@ The list of resources this template creates:
 
 ### Outputs
 The list of outputs this template exposes:
+
 | Output           | Description   |
 |------------------|---------------|
 {% for output in outputs %}
@@ -92,6 +95,7 @@ CHILD_TEMPLATE = """{% extends baseTemplate %}
 {% block parameters %}
 ### Parameters
 The list of parameters for this template:
+
 | Parameter        | Type   | Default   | Description |
 |------------------|--------|-----------|-------------|
 {% for parameter in parameters %}
@@ -102,6 +106,7 @@ The list of parameters for this template:
 {% block resources %}
 ### Resources
 The list of resources this template creates:
+
 | Resource         | Type   |
 |------------------|--------|
 {% for resource in resources %}
@@ -112,6 +117,7 @@ The list of resources this template creates:
 {% block outputs %}
 ### Outputs
 The list of outputs this template exposes:
+
 | Output           | Description   |
 |------------------|---------------|
 {% for output in outputs %}
