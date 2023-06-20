@@ -46,8 +46,13 @@ def add_breaks(text):
     
     return "".join([line+" <br>" for line in text.splitlines()])
 
+def strip_newlines(text):
+    # Removes line breaks from text and returns a single string, lines seperated with a space
+    return " ".join([line for line in text.splitlines()])
+
 func_dict = {
-    "add_breaks": add_breaks
+    "add_breaks": add_breaks,
+    "strip_newlines": strip_newlines
 }
 
 TEMPLATE = """# {{ name }}
@@ -59,7 +64,7 @@ The list of parameters for this template:
 | Parameter        | Type   | Default   | Description |
 |------------------|--------|-----------|-------------|
 {% for parameter in parameters %}
-| {{ parameter }} | {{ parameters[parameter].Type }} | {% if parameters[parameter].Default %}{{ parameters[parameter].Default}}{% endif %} | {% if parameters[parameter].Description %}{{ add_breaks(parameters[parameter].Description) }}{% endif %} |
+| {{ parameter }} | {{ parameters[parameter].Type }} | {% if parameters[parameter].Default %}{{ parameters[parameter].Default}}{% endif %} | {% if parameters[parameter].Description %}{{ strip_newlines(parameters[parameter].Description) }}{% endif %} |
 {% endfor %}
 
 ### Resources
@@ -75,7 +80,7 @@ The list of outputs this template exposes:
 | Output           | Description   |
 |------------------|---------------|
 {% for output in outputs %}
-| {{ output }} | {% if outputs[output].Description %}{{ add_breaks(outputs[output].Description) }}{% endif %} |
+| {{ output }} | {% if outputs[output].Description %}{{ strip_newlines(outputs[output].Description) }}{% endif %} |
 {% endfor %}
 """
 
@@ -90,7 +95,7 @@ The list of parameters for this template:
 | Parameter        | Type   | Default   | Description |
 |------------------|--------|-----------|-------------|
 {% for parameter in parameters %}
-| {{ parameter }} | {{ parameters[parameter].Type }} | {% if parameters[parameter].Default %}{{ parameters[parameter].Default}}{% endif %} | {% if parameters[parameter].Description %}{{ add_breaks(parameters[parameter].Description) }}{% endif %} |
+| {{ parameter }} | {{ parameters[parameter].Type }} | {% if parameters[parameter].Default %}{{ parameters[parameter].Default}}{% endif %} | {% if parameters[parameter].Description %}{{ strip_newlines(parameters[parameter].Description) }}{% endif %} |
 {% endfor %}
 {% endblock %}
 
@@ -110,7 +115,7 @@ The list of outputs this template exposes:
 | Output           | Description   |
 |------------------|---------------|
 {% for output in outputs %}
-| {{ output }} | {% if outputs[output].Description %}{{ add_breaks(outputs[output].Description) }}{% endif %} |
+| {{ output }} | {% if outputs[output].Description %}{{ strip_newlines(outputs[output].Description) }}{% endif %} |
 {% endfor %}
 {% endblock %}
 """
